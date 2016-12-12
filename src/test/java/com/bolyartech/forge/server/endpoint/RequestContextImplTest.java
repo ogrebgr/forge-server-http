@@ -1,5 +1,6 @@
-package com.bolyartech.forge.server;
+package com.bolyartech.forge.server.endpoint;
 
+import com.bolyartech.forge.server.endpoint.RequestContextImpl;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -1,5 +1,6 @@
-package com.bolyartech.forge.server;
+package com.bolyartech.forge.server.endpoint;
 
+import com.bolyartech.forge.server.HttpMethod;
 import com.bolyartech.forge.server.endpoint.RequestContext;
 import com.google.common.base.Strings;
 import com.google.common.io.CharStreams;

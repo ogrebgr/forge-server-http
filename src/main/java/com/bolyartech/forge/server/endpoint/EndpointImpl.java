@@ -1,7 +1,6 @@
 package com.bolyartech.forge.server.endpoint;
 
 import com.bolyartech.forge.server.HttpMethod;
-import com.bolyartech.forge.server.RequestContextImpl;
 import com.bolyartech.forge.server.SessionImpl;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;

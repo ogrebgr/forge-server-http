@@ -20,7 +20,6 @@ abstract public class MainServlet extends HttpServlet {
 
     private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Endpoint endpoint = mModuleRegister.match(HttpMethod.GET, req.getPathInfo());
@@ -70,4 +69,6 @@ abstract public class MainServlet extends HttpServlet {
 
 
     protected abstract List<ForgeModule> getModules();
+
+
 }

@@ -5,14 +5,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class StringResponseImpl implements StringResponse {
-    private static final String CONTENT_TYPE_TEXT = "text/plain;charset=UTF-8";
+abstract public class AbstractStringResponse implements StringResponse {
     private final String mString;
 
 
-    public StringResponseImpl(String string) {
+    public AbstractStringResponse(String string) {
         mString = string;
     }
+
+    abstract protected String getContentType();
 
 
     @Override
@@ -24,7 +25,7 @@ public class StringResponseImpl implements StringResponse {
     @Override
     public void toServletResponse(HttpServletResponse resp) throws ResponseException {
         resp.setStatus(HttpServletResponse.SC_OK);
-        resp.setContentType(CONTENT_TYPE_TEXT);
+        resp.setContentType(getContentType());
 
         try {
             PrintWriter pw = resp.getWriter();

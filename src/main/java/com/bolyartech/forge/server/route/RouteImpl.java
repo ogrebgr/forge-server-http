@@ -1,9 +1,10 @@
-package com.bolyartech.forge.server.endpoint;
+package com.bolyartech.forge.server.route;
 
 import com.bolyartech.forge.server.HttpMethod;
 import com.bolyartech.forge.server.SessionImpl;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
+import com.bolyartech.forge.server.response.ResponseProducer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 
-public class EndpointImpl implements Endpoint {
+public class RouteImpl implements Route {
     private static final Pattern PATH_PATTERN = Pattern.compile("^(/[-\\w:@&?=+,.!/~*'%$_;]*)?$");
 
     private final HttpMethod mHttpMethod;
@@ -19,7 +20,7 @@ public class EndpointImpl implements Endpoint {
     private final ResponseProducer mResponseProducer;
 
 
-    public EndpointImpl(HttpMethod httpMethod, String path, ResponseProducer responseProducer) {
+    public RouteImpl(HttpMethod httpMethod, String path, ResponseProducer responseProducer) {
         if (httpMethod == null) {
             throw new NullPointerException("httpMethod is null");
         }

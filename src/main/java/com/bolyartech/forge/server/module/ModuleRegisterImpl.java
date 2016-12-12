@@ -1,8 +1,8 @@
 package com.bolyartech.forge.server.module;
 
 import com.bolyartech.forge.server.HttpMethod;
-import com.bolyartech.forge.server.endpoint.Endpoint;
-import com.bolyartech.forge.server.endpoint.EndpointRegister;
+import com.bolyartech.forge.server.route.Route;
+import com.bolyartech.forge.server.route.RouteRegister;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -10,13 +10,13 @@ import java.util.List;
 
 
 public class ModuleRegisterImpl implements ModuleRegister {
-    private final EndpointRegister mEndpointRegister;
+    private final RouteRegister mRouteRegister;
 
     private final List<ForgeModule> mModules = new ArrayList<>();
 
 
-    public ModuleRegisterImpl(EndpointRegister endpointRegister) {
-        mEndpointRegister = endpointRegister;
+    public ModuleRegisterImpl(RouteRegister routeRegister) {
+        mRouteRegister = routeRegister;
     }
 
 
@@ -24,14 +24,14 @@ public class ModuleRegisterImpl implements ModuleRegister {
     public void registerModule(ForgeModule mod) {
         if (!isModuleRegistered(mod)) {
             mModules.add(mod);
-            for (Endpoint ep : mod.getEndpoints()) {
-                if (!mEndpointRegister.isRegistered(ep)) {
-                    mEndpointRegister.register(mod.getSystemName() + " (" + mod.getVersionName() + ")", ep);
+            for (Route ep : mod.createRoutes()) {
+                if (!mRouteRegister.isRegistered(ep)) {
+                    mRouteRegister.register(mod.getSystemName() + " (" + mod.getVersionName() + ")", ep);
                 } else {
-                    EndpointRegister.Registration reg = mEndpointRegister.getRegistration(ep);
+                    RouteRegister.Registration reg = mRouteRegister.getRegistration(ep);
                     throw new IllegalStateException(
                             MessageFormat.format("Path {0} already registered for module {1}",
-                                    reg.endpoint.getPath(),
+                                    reg.mRoute.getPath(),
                                     reg.moduleName));
                 }
             }
@@ -57,7 +57,7 @@ public class ModuleRegisterImpl implements ModuleRegister {
 
 
     @Override
-    public Endpoint match(HttpMethod method, String path) {
-        return mEndpointRegister.match(method, path);
+    public Route match(HttpMethod method, String path) {
+        return mRouteRegister.match(method, path);
     }
 }

@@ -1,4 +1,4 @@
-package com.bolyartech.forge.server.endpoint;
+package com.bolyartech.forge.server.route;
 
 import com.bolyartech.forge.server.HttpMethod;
 import com.google.common.base.CharMatcher;
@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public class EndpointRegisterImpl implements EndpointRegister {
+public class RouteRegisterImpl implements RouteRegister {
     private final Map<String, Registration> mEndpointsGet = new ConcurrentHashMap<>();
     private final Map<String, Registration> mEndpointsPost = new ConcurrentHashMap<>();
     private final Map<String, Registration> mEndpointsDelete = new ConcurrentHashMap<>();
@@ -15,40 +15,40 @@ public class EndpointRegisterImpl implements EndpointRegister {
 
 
     @Override
-    public void register(String moduleName, Endpoint endpoint) {
-        if (endpoint == null) {
-            throw new NullPointerException("endpoint is null");
+    public void register(String moduleName, Route route) {
+        if (route == null) {
+            throw new NullPointerException("route is null");
         }
 
-        switch (endpoint.getHttpMethod()) {
+        switch (route.getHttpMethod()) {
             case GET:
-                register(mEndpointsGet, moduleName, endpoint);
+                register(mEndpointsGet, moduleName, route);
                 break;
             case POST:
-                register(mEndpointsPost, moduleName, endpoint);
+                register(mEndpointsPost, moduleName, route);
                 break;
             case PUT:
-                register(mEndpointsPut, moduleName, endpoint);
+                register(mEndpointsPut, moduleName, route);
                 break;
             case DELETE:
-                register(mEndpointsDelete, moduleName, endpoint);
+                register(mEndpointsDelete, moduleName, route);
                 break;
         }
 
     }
 
 
-    private void register(Map<String, Registration> endpoints, String moduleName, Endpoint endpoint) {
-        if (!endpoints.containsKey(endpoint.getPath())) {
-            endpoints.put(endpoint.getPath(), new Registration(moduleName, endpoint));
+    private void register(Map<String, Registration> endpoints, String moduleName, Route route) {
+        if (!endpoints.containsKey(route.getPath())) {
+            endpoints.put(route.getPath(), new Registration(moduleName, route));
         } else {
-            throw new IllegalStateException("Registered path already exist: " + endpoint.getPath());
+            throw new IllegalStateException("Registered path already exist: " + route.getPath());
         }
     }
 
 
     @Override
-    public boolean isRegistered(Endpoint ep) {
+    public boolean isRegistered(Route ep) {
         switch (ep.getHttpMethod()) {
             case GET:
                 return mEndpointsGet.containsKey(ep.getPath());
@@ -65,7 +65,7 @@ public class EndpointRegisterImpl implements EndpointRegister {
 
 
     @Override
-    public Registration getRegistration(Endpoint ep) {
+    public Registration getRegistration(Route ep) {
         switch (ep.getHttpMethod()) {
             case GET:
                 return mEndpointsGet.get(ep.getPath());
@@ -88,8 +88,8 @@ public class EndpointRegisterImpl implements EndpointRegister {
      * @return
      */
     @Override
-    public Endpoint match(HttpMethod method, String path) {
-        path = EndpointImpl.normalizePath(path);
+    public Route match(HttpMethod method, String path) {
+        path = RouteImpl.normalizePath(path);
 
         switch (method) {
             case GET:
@@ -106,10 +106,10 @@ public class EndpointRegisterImpl implements EndpointRegister {
     }
 
 
-    private Endpoint match(Map<String, Registration> endpoints, String path) {
+    private Route match(Map<String, Registration> endpoints, String path) {
         Registration reg = endpoints.get(path);
         if (reg != null) {
-            return reg.endpoint;
+            return reg.mRoute;
         } else {
             int count = countSlashes(path);
             // < 15 prevents DDOS attacks with intentionally maliciously composed urls that contain multiple slashes like

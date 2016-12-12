@@ -1,4 +1,4 @@
-package com.bolyartech.forge.server.endpoint;
+package com.bolyartech.forge.server.route;
 
 import javax.servlet.http.Cookie;
 import java.util.List;

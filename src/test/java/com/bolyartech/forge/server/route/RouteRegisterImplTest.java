@@ -1,15 +1,15 @@
-package com.bolyartech.forge.server.endpoint;
+package com.bolyartech.forge.server.route;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 
-public class EndpointRegisterImplTest {
+public class RouteRegisterImplTest {
     @Test
     public void testRemoveLastPathSegment() {
         String source = "/presni/chudesni";
-        String result = EndpointRegisterImpl.removeLastPathSegment(source);
+        String result = RouteRegisterImpl.removeLastPathSegment(source);
 
         assertTrue("Last segment not removed. result: "+ result, result.equals("/presni"));
     }
@@ -17,7 +17,7 @@ public class EndpointRegisterImplTest {
     @Test
     public void testCountSlashes() {
         String source = "/presni/chudesni";
-        int count = EndpointRegisterImpl.countSlashes(source);
+        int count = RouteRegisterImpl.countSlashes(source);
         assertTrue("Invalid count: " + count, count == 2);
     }
 }

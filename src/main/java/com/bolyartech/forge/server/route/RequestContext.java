@@ -19,6 +19,9 @@ public interface RequestContext {
      * @return List containing path info parameters ordered from left to right
      */
     List<String> getPi();
+
+    String getRoutePath();
+    String getPathInfoString();
     Cookie getCookie(String cookieName);
     String getFromServer(String cookieName);
     String optFromGet(String parameterName, String defaultValue);
@@ -26,4 +29,7 @@ public interface RequestContext {
     String optFromPathInfo(String parameterName, String defaultValue);
     String optCookie(String cookieName, String defaultValue);
     String optFromServer(String cookieName, String defaultValue);
+
+    String getHeader(String headerName);
+    List<String> getHeaderValues(String headerName);
 }

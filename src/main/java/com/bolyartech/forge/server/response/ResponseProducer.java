@@ -6,5 +6,5 @@ import com.bolyartech.forge.server.route.RequestContext;
 
 
 public interface ResponseProducer {
-    Response produce(RequestContext ctx, Session session);
+    Response produce(RequestContext ctx, Session session) throws ResponseException;
 }

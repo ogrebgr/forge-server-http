@@ -50,7 +50,7 @@ public class RouteImpl implements Route {
     @Override
     public void handle(HttpServletRequest httpReq, HttpServletResponse httpResp) throws ResponseException {
         try {
-            Response resp = mResponseProducer.produce(new RequestContextImpl(httpReq),
+            Response resp = mResponseProducer.produce(new RequestContextImpl(httpReq, mPath),
                     new SessionImpl(httpReq.getSession()));
             resp.toServletResponse(httpResp);
         } catch (IOException  e) {

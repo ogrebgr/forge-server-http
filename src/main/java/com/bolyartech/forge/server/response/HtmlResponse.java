@@ -9,6 +9,11 @@ public class HtmlResponse extends AbstractStringResponse {
     }
 
 
+    public HtmlResponse(String string, boolean enableGzipSupport) {
+        super(string, enableGzipSupport);
+    }
+
+
     @Override
     protected String getContentType() {
         return CONTENT_TYPE_HTML;

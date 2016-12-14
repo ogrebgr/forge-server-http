@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class RequestContextImpl implements RequestContext {
@@ -26,9 +23,11 @@ public class RequestContextImpl implements RequestContext {
     private final Map<String, Cookie> mCookieParams = new HashMap<>();
     private boolean mCookiesInitialized = false;
     private final List<String> mPathInfoParams = new ArrayList<>();
+    private final String mRoutePath;
+    private final String mPathInfoString;
 
 
-    public RequestContextImpl(HttpServletRequest httpReq) throws IOException {
+    public RequestContextImpl(HttpServletRequest httpReq, String routePath) throws IOException {
         mHttpReq = httpReq;
         extractParameters(httpReq.getQueryString(), mGetParams);
 
@@ -39,7 +38,16 @@ public class RequestContextImpl implements RequestContext {
             }
         }
 
-//TODO pi variables
+        mRoutePath = routePath;
+        mPathInfoString = mHttpReq.getPathInfo().replace(routePath, "");
+
+        String[] piRaw = mPathInfoString.split("/");
+        for (String s : piRaw) {
+            if (s.trim().length() > 0) {
+                mPathInfoParams.add(s);
+            }
+        }
+
     }
 
 
@@ -84,6 +92,18 @@ public class RequestContextImpl implements RequestContext {
     @Override
     public List<String> getPi() {
         return getPathInfoParameters();
+    }
+
+
+    @Override
+    public String getRoutePath() {
+        return mRoutePath;
+    }
+
+
+    @Override
+    public String getPathInfoString() {
+        return mPathInfoString;
     }
 
 
@@ -137,5 +157,19 @@ public class RequestContextImpl implements RequestContext {
     }
 
 
+    @Override
+    public String getHeader(String headerName) {
+        return mHttpReq.getHeader(headerName);
+    }
 
+
+    @Override
+    public List<String> getHeaderValues(String headerName) {
+        Enumeration<String> values =  mHttpReq.getHeaders(headerName);
+        if (values != null) {
+            return Collections.list(values);
+        } else {
+            return null;
+        }
+    }
 }

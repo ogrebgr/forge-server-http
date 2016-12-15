@@ -21,6 +21,7 @@ public interface RequestContext {
     List<String> getPi();
 
     String getRoutePath();
+    String getScheme();
     String getPathInfoString();
     Cookie getCookie(String cookieName);
     String getFromServer(String cookieName);

@@ -8,7 +8,6 @@ import com.bolyartech.forge.server.route.RequestContext;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
 
 
 public class StaticFile implements ResponseProducer {

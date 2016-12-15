@@ -102,6 +102,12 @@ public class RequestContextImpl implements RequestContext {
 
 
     @Override
+    public String getScheme() {
+        return mHttpReq.getScheme().toLowerCase();
+    }
+
+
+    @Override
     public String getPathInfoString() {
         return mPathInfoString;
     }

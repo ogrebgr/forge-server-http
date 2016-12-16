@@ -5,6 +5,7 @@ import com.bolyartech.forge.server.SessionImpl;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
 import com.bolyartech.forge.server.response.ResponseProducer;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,8 @@ import java.util.regex.Pattern;
 
 
 public class RouteImpl implements Route {
+    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
+
     private static final Pattern PATH_PATTERN = Pattern.compile("^(/[-\\w:@&?=+,.!/~*'%$_;]*)?$");
 
     private final HttpMethod mHttpMethod;
@@ -50,6 +53,7 @@ public class RouteImpl implements Route {
     @Override
     public void handle(HttpServletRequest httpReq, HttpServletResponse httpResp) throws ResponseException {
         try {
+            mLogger.trace("Will handle {} {}", mHttpMethod, mPath);
             Response resp = mResponseProducer.produce(new RequestContextImpl(httpReq, mPath),
                     new SessionImpl(httpReq.getSession()));
             resp.toServletResponse(httpResp);

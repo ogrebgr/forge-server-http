@@ -42,6 +42,23 @@ abstract public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Route route = mModuleRegister.match(HttpMethod.GET, req.getPathInfo());
+
+        if (route != null) {
+            handle(req, resp, route);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            PrintWriter pw = resp.getWriter();
+            pw.print("Not found");
+            pw.flush();
+            pw.close();
+        }
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Route route = mModuleRegister.match(HttpMethod.POST, req.getPathInfo());
+
         if (route != null) {
             handle(req, resp, route);
         } else {
@@ -58,7 +75,8 @@ abstract public class MainServlet extends HttpServlet {
         try {
             route.handle(req, resp);
         } catch (ResponseException e) {
-            mLogger.error("Error handling {}, Error: {}", route, e);
+            mLogger.error("Error handling {}, Error: {}", route, e.getMessage());
+            mLogger.debug("Exception: ", e);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             try {
                 PrintWriter pw = resp.getWriter();

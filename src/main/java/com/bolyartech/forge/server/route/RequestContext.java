@@ -1,6 +1,11 @@
 package com.bolyartech.forge.server.route;
 
+import com.bolyartech.forge.server.HttpMethod;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -22,6 +27,7 @@ public interface RequestContext {
 
     String getRoutePath();
     String getScheme();
+    Part getPart(String partName) throws IOException, ServletException;
     String getPathInfoString();
     Cookie getCookie(String cookieName);
     String getFromServer(String cookieName);
@@ -33,4 +39,9 @@ public interface RequestContext {
 
     String getHeader(String headerName);
     List<String> getHeaderValues(String headerName);
+
+    boolean isMultipart();
+    HttpMethod getMethod();
+    HttpMethod getHttpMethod();
+    boolean isMethod(HttpMethod method);
 }

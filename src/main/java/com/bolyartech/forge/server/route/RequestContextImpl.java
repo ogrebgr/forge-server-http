@@ -4,8 +4,10 @@ import com.bolyartech.forge.server.HttpMethod;
 import com.google.common.base.Strings;
 import com.google.common.io.CharStreams;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -15,6 +17,7 @@ import java.util.*;
 public class RequestContextImpl implements RequestContext {
     private static final String HEADER_CONTENT_TYPE = "Content-Type";
     private static final String CONTENT_TYPE_FORM_ENCODED = "application/x-www-form-urlencoded";
+    private static final String CONTENT_TYPE_MULTIPART = "multipart/form-data";
 
 
     private final HttpServletRequest mHttpReq;
@@ -25,6 +28,7 @@ public class RequestContextImpl implements RequestContext {
     private final List<String> mPathInfoParams = new ArrayList<>();
     private final String mRoutePath;
     private final String mPathInfoString;
+    private boolean mIsMultipart;
 
 
     public RequestContextImpl(HttpServletRequest httpReq, String routePath) throws IOException {
@@ -35,6 +39,8 @@ public class RequestContextImpl implements RequestContext {
             String contentType = httpReq.getHeader(HEADER_CONTENT_TYPE);
             if (contentType.toLowerCase().contains(CONTENT_TYPE_FORM_ENCODED.toLowerCase())) {
                 extractParameters(CharStreams.toString(httpReq.getReader()), mPostParams);
+            } else if (contentType.toLowerCase().contains(CONTENT_TYPE_MULTIPART.toLowerCase())) {
+                mIsMultipart = true;
             }
         }
 
@@ -108,6 +114,12 @@ public class RequestContextImpl implements RequestContext {
 
 
     @Override
+    public Part getPart(String partName) throws IOException, ServletException {
+        return mHttpReq.getPart(partName);
+    }
+
+
+    @Override
     public String getPathInfoString() {
         return mPathInfoString;
     }
@@ -177,5 +189,40 @@ public class RequestContextImpl implements RequestContext {
         } else {
             return null;
         }
+    }
+
+
+    @Override
+    public boolean isMultipart() {
+        return mIsMultipart;
+    }
+
+
+    @Override
+    public HttpMethod getMethod() {
+        return getHttpMethod();
+    }
+
+
+    @Override
+    public HttpMethod getHttpMethod() {
+        switch (mHttpReq.getMethod().toLowerCase()) {
+            case "get":
+                return HttpMethod.GET;
+            case "post":
+                return HttpMethod.POST;
+            case "put":
+                return HttpMethod.PUT;
+            case "delete":
+                return HttpMethod.DELETE;
+            default:
+                return null;
+        }
+    }
+
+
+    @Override
+    public boolean isMethod(HttpMethod method) {
+        return mHttpReq.getMethod().toLowerCase().equals(method.getLiteral().toLowerCase());
     }
 }

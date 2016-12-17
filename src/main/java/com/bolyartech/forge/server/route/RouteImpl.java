@@ -29,7 +29,7 @@ public class RouteImpl implements Route {
         }
 
         if (!isValidPath(path)) {
-            throw new IllegalArgumentException("Invalid paht: " + path);
+            throw new IllegalArgumentException("Invalid path: " + path);
         }
 
         mHttpMethod = httpMethod;

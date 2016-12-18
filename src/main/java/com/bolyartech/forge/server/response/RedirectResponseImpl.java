@@ -8,7 +8,6 @@ public class RedirectResponseImpl implements RedirectResponse {
     private final String mLocation;
 
 
-
     public RedirectResponseImpl(String location) {
         mLocation = location;
     }

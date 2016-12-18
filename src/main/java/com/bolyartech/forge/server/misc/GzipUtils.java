@@ -13,7 +13,7 @@ public class GzipUtils {
             for (String val : values) {
                 if (val.contains(",")) {
                     String[] exploded = val.split(",");
-                    for(String s : exploded) {
+                    for (String s : exploded) {
                         if (s.contains(HttpHeaders.CONTENT_ENCODING_GZIP)) {
                             return true;
                         }

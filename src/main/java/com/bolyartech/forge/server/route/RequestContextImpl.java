@@ -129,7 +129,7 @@ public class RequestContextImpl implements RequestContext {
     public Cookie getCookie(String cookieName) {
         if (!mCookiesInitialized) {
             Cookie[] cs = mHttpReq.getCookies();
-            for(Cookie c : cs) {
+            for (Cookie c : cs) {
                 mCookieParams.put(c.getName(), c);
             }
             mCookiesInitialized = true;
@@ -183,7 +183,7 @@ public class RequestContextImpl implements RequestContext {
 
     @Override
     public List<String> getHeaderValues(String headerName) {
-        Enumeration<String> values =  mHttpReq.getHeaders(headerName);
+        Enumeration<String> values = mHttpReq.getHeaders(headerName);
         if (values != null) {
             return Collections.list(values);
         } else {

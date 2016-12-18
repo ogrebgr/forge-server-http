@@ -83,6 +83,7 @@ public class RouteRegisterImpl implements RouteRegister {
 
     /**
      * If the path contains more than 15 slashes it will not be matched
+     *
      * @param method
      * @param path
      * @return
@@ -121,6 +122,7 @@ public class RouteRegisterImpl implements RouteRegister {
             }
         }
     }
+
 
     static int countSlashes(String str) {
         return CharMatcher.is('/').countIn(str);

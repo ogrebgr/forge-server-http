@@ -57,7 +57,7 @@ public class RouteImpl implements Route {
             Response resp = mResponseProducer.produce(new RequestContextImpl(httpReq, mPath),
                     new SessionImpl(httpReq.getSession()));
             resp.toServletResponse(httpResp);
-        } catch (IOException  e) {
+        } catch (IOException e) {
             throw new ResponseException(e);
         }
     }
@@ -113,6 +113,6 @@ public class RouteImpl implements Route {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + " path: "+ mPath;
+        return getClass().getSimpleName() + " path: " + mPath;
     }
 }

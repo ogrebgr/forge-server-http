@@ -45,7 +45,7 @@ public class ModuleRegisterImpl implements ModuleRegister {
     public boolean isModuleRegistered(ForgeModule mod) {
         boolean ret = false;
 
-        for(ForgeModule m : mModules) {
+        for (ForgeModule m : mModules) {
             if (m.getSystemName().equalsIgnoreCase(mod.getSystemName())) {
                 ret = true;
                 break;

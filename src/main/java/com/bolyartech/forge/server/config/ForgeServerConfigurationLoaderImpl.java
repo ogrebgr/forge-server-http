@@ -29,7 +29,7 @@ public class ForgeServerConfigurationLoaderImpl implements ForgeServerConfigurat
 
             try {
                 return new ForgeServerConfigurationImpl(prop.getProperty(PROP_SERVER_LOG_NAME));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 mLogger.error("Error populating configuration", e);
                 throw new ForgeConfigurationException(e);
             }

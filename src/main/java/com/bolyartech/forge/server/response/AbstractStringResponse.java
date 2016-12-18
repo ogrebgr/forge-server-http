@@ -3,7 +3,10 @@ package com.bolyartech.forge.server.response;
 import com.google.common.io.ByteStreams;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
 
@@ -49,7 +52,7 @@ abstract public class AbstractStringResponse implements StringResponse {
                 out = resp.getOutputStream();
             }
 
-            InputStream is = new ByteArrayInputStream( mString.getBytes("UTF-8"));
+            InputStream is = new ByteArrayInputStream(mString.getBytes("UTF-8"));
             ByteStreams.copy(is, out);
             out.flush();
             out.close();

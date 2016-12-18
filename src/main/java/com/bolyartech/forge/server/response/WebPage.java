@@ -9,6 +9,7 @@ abstract public class WebPage implements WebPageInterface {
     private final TemplateEngineFactory mTemplateEngineFactory;
     private final boolean mEnableGzipSupport;
 
+
     public WebPage(TemplateEngineFactory templateEngineFactory) {
         mTemplateEngineFactory = templateEngineFactory;
         mEnableGzipSupport = false;

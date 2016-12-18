@@ -11,8 +11,9 @@ public class RouteRegisterImplTest {
         String source = "/presni/chudesni";
         String result = RouteRegisterImpl.removeLastPathSegment(source);
 
-        assertTrue("Last segment not removed. result: "+ result, result.equals("/presni"));
+        assertTrue("Last segment not removed. result: " + result, result.equals("/presni"));
     }
+
 
     @Test
     public void testCountSlashes() {

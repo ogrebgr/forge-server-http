@@ -77,7 +77,7 @@ public class MimeTypeResolverImpl implements MimeTypeResolver {
 
         String ret = FALLBACK_MIME;
 
-        if (!Strings.isNullOrEmpty(fileExtension) ) {
+        if (!Strings.isNullOrEmpty(fileExtension)) {
             String mime = mExtToMime.get(fileExtension);
             if (mime != null) {
                 ret = mime;

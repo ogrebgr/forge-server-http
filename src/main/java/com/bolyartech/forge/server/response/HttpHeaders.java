@@ -5,6 +5,7 @@ public class HttpHeaders {
         throw new AssertionError("Non-instantiable utility class");
     }
 
+
     public static final String LAST_MODIFIED = "Last-Modified";
     public static final String CONTENT_TYPE_OCTET = "application/octet-stream";
     public static final String CACHE_CONTROL = "Cache-control";

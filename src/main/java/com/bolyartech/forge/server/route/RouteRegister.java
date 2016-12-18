@@ -6,8 +6,11 @@ import com.google.common.base.Strings;
 
 public interface RouteRegister {
     void register(String moduleName, Route ep);
+
     boolean isRegistered(Route ep);
+
     Registration getRegistration(Route ep);
+
     Route match(HttpMethod method, String path);
 
 

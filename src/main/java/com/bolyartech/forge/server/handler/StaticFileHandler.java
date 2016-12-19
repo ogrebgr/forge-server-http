@@ -1,8 +1,11 @@
-package com.bolyartech.forge.server.response;
+package com.bolyartech.forge.server.handler;
 
 import com.bolyartech.forge.server.Session;
 import com.bolyartech.forge.server.misc.GzipUtils;
 import com.bolyartech.forge.server.misc.MimeTypeResolver;
+import com.bolyartech.forge.server.response.Response;
+import com.bolyartech.forge.server.response.ResponseException;
+import com.bolyartech.forge.server.response.StaticFileResponse;
 import com.bolyartech.forge.server.route.RequestContext;
 
 import java.io.File;
@@ -10,7 +13,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 
-public class StaticFile implements ResponseProducer {
+public class StaticFileHandler implements Handler {
 
     private final ClassLoader mClassLoader;
     private final String mPath;
@@ -19,16 +22,16 @@ public class StaticFile implements ResponseProducer {
     private final boolean mEnableGzip;
 
 
-    public StaticFile(String path, Response notFoundResponse, MimeTypeResolver mimeTypeResolver, boolean enableGzip) {
+    public StaticFileHandler(String path, Response notFoundResponse, MimeTypeResolver mimeTypeResolver, boolean enableGzip) {
         this(path, notFoundResponse, mimeTypeResolver, enableGzip, null);
     }
 
 
-    public StaticFile(String path,
-                      Response notFoundResponse,
-                      MimeTypeResolver mimeTypeResolver,
-                      boolean enableGzip,
-                      ClassLoader classLoader) {
+    public StaticFileHandler(String path,
+                             Response notFoundResponse,
+                             MimeTypeResolver mimeTypeResolver,
+                             boolean enableGzip,
+                             ClassLoader classLoader) {
 
         if (path.startsWith("/")) {
             mPath = path.substring(1);
@@ -48,7 +51,7 @@ public class StaticFile implements ResponseProducer {
 
 
     @Override
-    public Response produce(RequestContext ctx, Session session) throws ResponseException {
+    public Response handle(RequestContext ctx, Session session) throws ResponseException {
         String filePath = mPath + ctx.getRoutePath() + ctx.getPathInfoString();
 
         URL url = mClassLoader.getResource(filePath);

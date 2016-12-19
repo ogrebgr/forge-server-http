@@ -11,7 +11,7 @@ import com.bolyartech.forge.server.module.ForgeModule;
 import com.bolyartech.forge.server.module.ModuleRegister;
 import com.bolyartech.forge.server.module.ModuleRegisterImpl;
 import com.bolyartech.forge.server.response.ResponseException;
-import com.bolyartech.forge.server.response.ResponseProducer;
+import com.bolyartech.forge.server.handler.Handler;
 import com.bolyartech.forge.server.route.Route;
 import com.bolyartech.forge.server.route.RouteImpl;
 import com.bolyartech.forge.server.route.RouteRegister;
@@ -124,8 +124,8 @@ abstract public class MainServlet extends HttpServlet {
     }
 
 
-    public void addRoute(HttpMethod httpMethod, String path, ResponseProducer responseProducer) {
-        mRouteRegister.register(DEFAULT_MODULE_NAME, new RouteImpl(httpMethod, path, responseProducer));
+    public void addRoute(HttpMethod httpMethod, String path, Handler handler) {
+        mRouteRegister.register(DEFAULT_MODULE_NAME, new RouteImpl(httpMethod, path, handler));
     }
 
 

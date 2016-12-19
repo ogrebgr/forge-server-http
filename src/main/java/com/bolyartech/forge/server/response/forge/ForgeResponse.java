@@ -1,21 +1,24 @@
-package com.bolyartech.forge.server.response;
+package com.bolyartech.forge.server.response.forge;
+
+import com.bolyartech.forge.server.response.JsonResponse;
+import com.bolyartech.forge.server.response.ResponseException;
 
 import javax.servlet.http.HttpServletResponse;
 
 
-public class ForgeEndpoint extends JsonEndpoint {
+public class ForgeResponse extends JsonResponse {
     private static final String FORGE_RESULT_CODE_HEADER = "X-Forge-Result-Code";
 
     private final int mResultCode;
 
 
-    public ForgeEndpoint(String string, int resultCode) {
+    public ForgeResponse(String string, int resultCode) {
         super(string);
         mResultCode = resultCode;
     }
 
 
-    public ForgeEndpoint(String string, boolean enableGzipSupport, int resultCode) {
+    public ForgeResponse(String string, boolean enableGzipSupport, int resultCode) {
         super(string, enableGzipSupport);
         mResultCode = resultCode;
     }

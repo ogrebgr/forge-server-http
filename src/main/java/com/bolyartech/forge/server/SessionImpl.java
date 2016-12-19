@@ -23,4 +23,10 @@ public class SessionImpl implements Session {
     public void setVar(String varName, Object value) {
         mHttpSession.setAttribute(varName, value);
     }
+
+
+    @Override
+    public int getMaxInactiveInterval() {
+        return mHttpSession.getMaxInactiveInterval();
+    }
 }

@@ -2,12 +2,15 @@ package com.bolyartech.forge.server.route;
 
 import com.bolyartech.forge.server.HttpMethod;
 import com.google.common.base.CharMatcher;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 public class RouteRegisterImpl implements RouteRegister {
+    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
+
     private final Map<String, Registration> mEndpointsGet = new ConcurrentHashMap<>();
     private final Map<String, Registration> mEndpointsPost = new ConcurrentHashMap<>();
     private final Map<String, Registration> mEndpointsDelete = new ConcurrentHashMap<>();
@@ -41,6 +44,7 @@ public class RouteRegisterImpl implements RouteRegister {
     private void register(Map<String, Registration> endpoints, String moduleName, Route route) {
         if (!endpoints.containsKey(route.getPath())) {
             endpoints.put(route.getPath(), new Registration(moduleName, route));
+            mLogger.info("Registered route {} {}", route.getHttpMethod(), route.getPath());
         } else {
             throw new IllegalStateException("Registered path already exist: " + route.getPath());
         }

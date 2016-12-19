@@ -4,7 +4,7 @@ import com.bolyartech.forge.server.HttpMethod;
 import com.bolyartech.forge.server.SessionImpl;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
-import com.bolyartech.forge.server.response.ResponseProducer;
+import com.bolyartech.forge.server.handler.Handler;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +20,10 @@ public class RouteImpl implements Route {
 
     private final HttpMethod mHttpMethod;
     private final String mPath;
-    private final ResponseProducer mResponseProducer;
+    private final Handler mHandler;
 
 
-    public RouteImpl(HttpMethod httpMethod, String path, ResponseProducer responseProducer) {
+    public RouteImpl(HttpMethod httpMethod, String path, Handler handler) {
         if (httpMethod == null) {
             throw new NullPointerException("httpMethod is null");
         }
@@ -34,7 +34,7 @@ public class RouteImpl implements Route {
 
         mHttpMethod = httpMethod;
         mPath = normalizePath(path);
-        mResponseProducer = responseProducer;
+        mHandler = handler;
     }
 
 
@@ -54,7 +54,7 @@ public class RouteImpl implements Route {
     public void handle(HttpServletRequest httpReq, HttpServletResponse httpResp) throws ResponseException {
         try {
             mLogger.trace("Will handle {} {}", mHttpMethod, mPath);
-            Response resp = mResponseProducer.produce(new RequestContextImpl(httpReq, mPath),
+            Response resp = mHandler.handle(new RequestContextImpl(httpReq, mPath),
                     new SessionImpl(httpReq.getSession()));
             resp.toServletResponse(httpResp);
         } catch (IOException e) {

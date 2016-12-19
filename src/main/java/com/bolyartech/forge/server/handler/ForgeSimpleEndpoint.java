@@ -1,0 +1,14 @@
+package com.bolyartech.forge.server.handler;
+
+import com.bolyartech.forge.server.Session;
+import com.bolyartech.forge.server.response.Response;
+import com.bolyartech.forge.server.response.ResponseException;
+import com.bolyartech.forge.server.route.RequestContext;
+
+
+abstract public class ForgeSimpleEndpoint implements Handler, ForgeHandlerInterface  {
+    @Override
+    public Response handle(RequestContext ctx, Session session) throws ResponseException {
+        return handleForge(ctx, session);
+    }
+}

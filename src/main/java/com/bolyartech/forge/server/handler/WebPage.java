@@ -1,7 +1,9 @@
-package com.bolyartech.forge.server.response;
+package com.bolyartech.forge.server.handler;
 
 import com.bolyartech.forge.server.Session;
 import com.bolyartech.forge.server.misc.TemplateEngineFactory;
+import com.bolyartech.forge.server.response.HtmlResponse;
+import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.route.RequestContext;
 
 
@@ -23,7 +25,7 @@ abstract public class WebPage implements WebPageInterface {
 
 
     @Override
-    public Response produce(RequestContext ctx, Session session) {
+    public Response handle(RequestContext ctx, Session session) {
         String content = produceHtml(ctx, session, mTemplateEngineFactory.createNew());
 
         return new HtmlResponse(content, mEnableGzipSupport);

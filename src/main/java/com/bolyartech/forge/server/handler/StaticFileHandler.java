@@ -1,6 +1,6 @@
 package com.bolyartech.forge.server.handler;
 
-import com.bolyartech.forge.server.Session;
+import com.bolyartech.forge.server.session.Session;
 import com.bolyartech.forge.server.misc.GzipUtils;
 import com.bolyartech.forge.server.misc.MimeTypeResolver;
 import com.bolyartech.forge.server.response.Response;

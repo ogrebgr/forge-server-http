@@ -1,4 +1,4 @@
-package com.bolyartech.forge.server;
+package com.bolyartech.forge.server.session;
 
 public interface Session {
     <T> T getVar(String varName);

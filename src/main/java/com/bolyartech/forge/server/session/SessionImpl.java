@@ -1,4 +1,4 @@
-package com.bolyartech.forge.server;
+package com.bolyartech.forge.server.session;
 
 import javax.servlet.http.HttpSession;
 

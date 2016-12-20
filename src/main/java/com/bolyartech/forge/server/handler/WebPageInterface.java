@@ -1,7 +1,6 @@
 package com.bolyartech.forge.server.handler;
 
-import com.bolyartech.forge.server.Session;
-import com.bolyartech.forge.server.handler.Handler;
+import com.bolyartech.forge.server.session.Session;
 import com.bolyartech.forge.server.misc.TemplateEngine;
 import com.bolyartech.forge.server.route.RequestContext;
 

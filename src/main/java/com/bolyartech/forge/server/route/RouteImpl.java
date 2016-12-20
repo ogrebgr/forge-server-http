@@ -1,7 +1,7 @@
 package com.bolyartech.forge.server.route;
 
 import com.bolyartech.forge.server.HttpMethod;
-import com.bolyartech.forge.server.SessionImpl;
+import com.bolyartech.forge.server.session.SessionImpl;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
 import com.bolyartech.forge.server.handler.Handler;

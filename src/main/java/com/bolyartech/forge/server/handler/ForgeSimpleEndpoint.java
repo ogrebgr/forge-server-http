@@ -1,6 +1,6 @@
 package com.bolyartech.forge.server.handler;
 
-import com.bolyartech.forge.server.Session;
+import com.bolyartech.forge.server.session.Session;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
 import com.bolyartech.forge.server.route.RequestContext;

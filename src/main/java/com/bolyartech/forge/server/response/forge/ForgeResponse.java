@@ -29,4 +29,14 @@ public class ForgeResponse extends JsonResponse {
         resp.setHeader(FORGE_RESULT_CODE_HEADER, Integer.toString(mResultCode));
         super.toServletResponse(resp);
     }
+
+
+    public int getResultCode() {
+        return mResultCode;
+    }
+
+
+    public String getPayload() {
+        return getString();
+    }
 }

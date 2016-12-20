@@ -1,6 +1,7 @@
 package com.bolyartech.forge.server.route;
 
 import com.bolyartech.forge.server.HttpMethod;
+import com.bolyartech.forge.server.response.HttpHeaders;
 import com.google.common.base.Strings;
 import com.google.common.io.CharStreams;
 
@@ -29,7 +30,7 @@ public class RequestContextImpl implements RequestContext {
     private final String mPathInfoString;
     private boolean mCookiesInitialized = false;
     private boolean mIsMultipart;
-
+    private ServerData mServerData;
 
     public RequestContextImpl(HttpServletRequest httpReq, String routePath) throws IOException {
         mHttpReq = httpReq;
@@ -140,12 +141,6 @@ public class RequestContextImpl implements RequestContext {
 
 
     @Override
-    public String getFromServer(String cookieName) {
-        return null;
-    }
-
-
-    @Override
     public String optFromGet(String parameterName, String defaultValue) {
         return null;
     }
@@ -165,12 +160,6 @@ public class RequestContextImpl implements RequestContext {
 
     @Override
     public String optCookie(String cookieName, String defaultValue) {
-        return null;
-    }
-
-
-    @Override
-    public String optFromServer(String cookieName, String defaultValue) {
         return null;
     }
 
@@ -224,5 +213,34 @@ public class RequestContextImpl implements RequestContext {
     @Override
     public boolean isMethod(HttpMethod method) {
         return mHttpReq.getMethod().toLowerCase().equals(method.getLiteral().toLowerCase());
+    }
+
+
+    @Override
+    public ServerData getServerData() {
+        if (mServerData == null) {
+            mServerData = new ServerData(mHttpReq.getLocalAddr(),
+                    mHttpReq.getServerName(),
+                    mHttpReq.getProtocol(),
+                    mHttpReq.getLocalPort(),
+                    mHttpReq.getMethod(),
+                    mHttpReq.getQueryString(),
+                    mHttpReq.getHeader(HttpHeaders.ACCEPT),
+                    mHttpReq.getHeader(HttpHeaders.ACCEPT_CHARSET),
+                    mHttpReq.getHeader(HttpHeaders.ACCEPT_ENCODING),
+                    mHttpReq.getHeader(HttpHeaders.ACCEPT_LANGUAGE),
+                    mHttpReq.getHeader(HttpHeaders.CONNECTION),
+                    mHttpReq.getHeader(HttpHeaders.HOST),
+                    mHttpReq.getHeader(HttpHeaders.REFERER),
+                    mHttpReq.getHeader(HttpHeaders.USER_AGENT),
+                    mHttpReq.getRemoteAddr(),
+                    mHttpReq.getRemoteHost(),
+                    mHttpReq.getRemotePort(),
+                    mHttpReq.getRequestURI(),
+                    mHttpReq.getPathInfo()
+                    );
+        }
+
+        return mServerData;
     }
 }

@@ -9,9 +9,7 @@ import java.util.Properties;
 
 
 public class DbConfigurationLoaderImpl implements DbConfigurationLoader {
-    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
     private static final String FILENAME = "conf/db.conf";
-
     private static final String PROP_DB_DSN = "db_dsn";
     private static final String PROP_DB_USERNAME = "db_username";
     private static final String PROP_DB_PASSWORD = "db_password";
@@ -22,6 +20,7 @@ public class DbConfigurationLoaderImpl implements DbConfigurationLoader {
     private static final String PROP_C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0_idle_connection_test_period";
     private static final String PROP_C3P0_TEST_CONNECTION_ON_CHECKIN = "c3p0_test_connection_on_checkin";
     private static final String PROP_C3P0_TEST_CONNECTION_ON_CHECKOUT = "c3p0_test_connection_on_checkout";
+    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
 
 
     @Override

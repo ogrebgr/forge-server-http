@@ -24,10 +24,10 @@ public class RequestContextImpl implements RequestContext {
     private final Map<String, String> mGetParams = new HashMap<>();
     private final Map<String, String> mPostParams = new HashMap<>();
     private final Map<String, Cookie> mCookieParams = new HashMap<>();
-    private boolean mCookiesInitialized = false;
     private final List<String> mPathInfoParams = new ArrayList<>();
     private final String mRoutePath;
     private final String mPathInfoString;
+    private boolean mCookiesInitialized = false;
     private boolean mIsMultipart;
 
 

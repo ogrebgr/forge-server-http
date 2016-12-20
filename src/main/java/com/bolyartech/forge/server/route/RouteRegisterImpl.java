@@ -17,6 +17,16 @@ public class RouteRegisterImpl implements RouteRegister {
     private final Map<String, Registration> mEndpointsPut = new ConcurrentHashMap<>();
 
 
+    static int countSlashes(String str) {
+        return CharMatcher.is('/').countIn(str);
+    }
+
+
+    static String removeLastPathSegment(String path) {
+        return path.substring(0, path.lastIndexOf('/'));
+    }
+
+
     @Override
     public void register(String moduleName, Route route) {
         if (route == null) {
@@ -38,16 +48,6 @@ public class RouteRegisterImpl implements RouteRegister {
                 break;
         }
 
-    }
-
-
-    private void register(Map<String, Registration> endpoints, String moduleName, Route route) {
-        if (!endpoints.containsKey(route.getPath())) {
-            endpoints.put(route.getPath(), new Registration(moduleName, route));
-            mLogger.info("Registered route {} {}", route.getHttpMethod(), route.getPath());
-        } else {
-            throw new IllegalStateException("Registered path already exist: " + route.getPath());
-        }
     }
 
 
@@ -111,6 +111,16 @@ public class RouteRegisterImpl implements RouteRegister {
     }
 
 
+    private void register(Map<String, Registration> endpoints, String moduleName, Route route) {
+        if (!endpoints.containsKey(route.getPath())) {
+            endpoints.put(route.getPath(), new Registration(moduleName, route));
+            mLogger.info("Registered route {} {}", route.getHttpMethod(), route.getPath());
+        } else {
+            throw new IllegalStateException("Registered path already exist: " + route.getPath());
+        }
+    }
+
+
     private Route match(Map<String, Registration> endpoints, String path) {
         Registration reg = endpoints.get(path);
         if (reg != null) {
@@ -125,15 +135,5 @@ public class RouteRegisterImpl implements RouteRegister {
                 return null;
             }
         }
-    }
-
-
-    static int countSlashes(String str) {
-        return CharMatcher.is('/').countIn(str);
-    }
-
-
-    static String removeLastPathSegment(String path) {
-        return path.substring(0, path.lastIndexOf('/'));
     }
 }

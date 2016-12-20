@@ -27,9 +27,6 @@ abstract public class AbstractStringResponse implements StringResponse {
     }
 
 
-    abstract protected String getContentType();
-
-
     @Override
     public String getString() {
         return mString;
@@ -60,4 +57,7 @@ abstract public class AbstractStringResponse implements StringResponse {
             throw new ResponseException(e);
         }
     }
+
+
+    abstract protected String getContentType();
 }

@@ -1,12 +1,12 @@
 package com.bolyartech.forge.server.handler;
 
-import com.bolyartech.forge.server.session.Session;
 import com.bolyartech.forge.server.misc.GzipUtils;
 import com.bolyartech.forge.server.misc.MimeTypeResolver;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
 import com.bolyartech.forge.server.response.StaticFileResponse;
 import com.bolyartech.forge.server.route.RequestContext;
+import com.bolyartech.forge.server.session.Session;
 
 import java.io.File;
 import java.net.URISyntaxException;

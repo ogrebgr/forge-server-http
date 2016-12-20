@@ -8,10 +8,9 @@ import java.util.Properties;
 
 
 public class ForgeServerConfigurationLoaderImpl implements ForgeServerConfigurationLoader {
-    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
     private static final String FILENAME = "conf/forge.conf";
-
     private static final String PROP_SERVER_LOG_NAME = "server_log_name";
+    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
 
 
     @Override

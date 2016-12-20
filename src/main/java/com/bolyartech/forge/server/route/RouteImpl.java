@@ -1,10 +1,10 @@
 package com.bolyartech.forge.server.route;
 
 import com.bolyartech.forge.server.HttpMethod;
-import com.bolyartech.forge.server.session.SessionImpl;
+import com.bolyartech.forge.server.handler.Handler;
 import com.bolyartech.forge.server.response.Response;
 import com.bolyartech.forge.server.response.ResponseException;
-import com.bolyartech.forge.server.handler.Handler;
+import com.bolyartech.forge.server.session.SessionImpl;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +14,8 @@ import java.util.regex.Pattern;
 
 
 public class RouteImpl implements Route {
-    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
-
     private static final Pattern PATH_PATTERN = Pattern.compile("^(/[-\\w:@&?=+,.!/~*'%$_;]*)?$");
-
+    private final org.slf4j.Logger mLogger = LoggerFactory.getLogger(this.getClass());
     private final HttpMethod mHttpMethod;
     private final String mPath;
     private final Handler mHandler;
@@ -35,6 +33,19 @@ public class RouteImpl implements Route {
         mHttpMethod = httpMethod;
         mPath = normalizePath(path);
         mHandler = handler;
+    }
+
+
+    static String normalizePath(String path) {
+        path = path.toLowerCase();
+
+        if (path.length() > 1) {
+            if (path.endsWith("/")) {
+                path = path.substring(0, path.length() - 1);
+            }
+        }
+
+        return path;
     }
 
 
@@ -63,16 +74,9 @@ public class RouteImpl implements Route {
     }
 
 
-    static String normalizePath(String path) {
-        path = path.toLowerCase();
-
-        if (path.length() > 1) {
-            if (path.endsWith("/")) {
-                path = path.substring(0, path.length() - 1);
-            }
-        }
-
-        return path;
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " path: " + mPath;
     }
 
 
@@ -108,11 +112,5 @@ public class RouteImpl implements Route {
             }
         }
         return count;
-    }
-
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + " path: " + mPath;
     }
 }

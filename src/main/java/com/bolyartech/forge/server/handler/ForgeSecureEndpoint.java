@@ -7,7 +7,9 @@ import com.bolyartech.forge.server.route.RequestContext;
 import com.bolyartech.forge.server.session.Session;
 
 
-abstract public class ForgeSecureEndpoint implements ForgeHandlerInterface, ForgeSecureEndpointInterface {
+abstract public class ForgeSecureEndpoint extends ForgeEndpoint implements ForgeHandlerInterface,
+        ForgeSecureEndpointInterface {
+
     @Override
     public ForgeResponse handleForge(RequestContext ctx, Session session) throws ResponseException {
         if (ctx.getScheme().equals("https")) {

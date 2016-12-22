@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-abstract public class ForgeDbEndpoint extends ForgeSimpleEndpoint implements ForgeDbEndpointInterface {
+abstract public class ForgeDbEndpoint extends ForgeEndpoint implements ForgeDbEndpointInterface {
     private final DbPool mDbPool;
 
 

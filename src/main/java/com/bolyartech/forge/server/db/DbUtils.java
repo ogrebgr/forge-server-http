@@ -14,8 +14,12 @@ public class DbUtils {
 
 
     public static void ensureOperationalDbc(Connection dbc) throws SQLException {
-        if (dbc.isClosed()) {
-            throw new IllegalArgumentException("DB connection is closed.");
+        if (dbc != null) {
+            if (dbc.isClosed()) {
+                throw new IllegalArgumentException("DB connection is closed.");
+            }
+        } else {
+            throw new NullPointerException("dbc is null");
         }
     }
 

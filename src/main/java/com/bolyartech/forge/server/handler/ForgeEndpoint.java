@@ -6,7 +6,7 @@ import com.bolyartech.forge.server.route.RequestContext;
 import com.bolyartech.forge.server.session.Session;
 
 
-abstract public class ForgeSimpleEndpoint implements Handler, ForgeHandlerInterface {
+abstract public class ForgeEndpoint implements Handler, ForgeHandlerInterface {
     @Override
     public Response handle(RequestContext ctx, Session session) throws ResponseException {
         return handleForge(ctx, session);

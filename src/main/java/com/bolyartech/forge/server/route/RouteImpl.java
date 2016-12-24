@@ -68,7 +68,7 @@ public class RouteImpl implements Route {
             Response resp = mHandler.handle(new RequestContextImpl(httpReq, mPath),
                     new SessionImpl(httpReq.getSession()));
             resp.toServletResponse(httpResp);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ResponseException(e);
         }
     }

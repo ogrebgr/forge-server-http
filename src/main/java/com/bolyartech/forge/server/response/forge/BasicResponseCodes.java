@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 public class BasicResponseCodes {
-    public enum Oks {
+    public enum Oks implements ForgeResponseCode {
         OK(1); // used as general code that indicates success
 
         private final int code;
@@ -20,13 +20,14 @@ public class BasicResponseCodes {
         }
 
 
+        @Override
         public int getCode() {
             return code;
         }
     }
 
 
-    public enum Errors {
+    public enum Errors implements ForgeResponseCode {
         ERROR(-1), // used as general error when we cant/don't want to specify more details
         MISSING_PARAMETERS(-2), // missing required parameters
         REQUIRES_HTTPS(-3), // HTTPS protocol must be used
@@ -66,6 +67,7 @@ public class BasicResponseCodes {
         }
 
 
+        @Override
         public int getCode() {
             return mCode;
         }

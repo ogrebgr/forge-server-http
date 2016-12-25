@@ -17,6 +17,8 @@ public class HttpHeaders {
     public static final String ACCEPT_LANGUAGE = "Accept-Language";
     public static final String CONTENT_DISPOSITION = "Content-Disposition";
     public static final String CONTENT_DISPOSITION_ATTACHMENT = "attachment; filename=\"{0}\"";
+
+
     private HttpHeaders() {
         throw new AssertionError("Non-instantiable utility class");
     }

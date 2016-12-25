@@ -32,6 +32,7 @@ public class RequestContextImpl implements RequestContext {
     private boolean mIsMultipart;
     private ServerData mServerData;
 
+
     public RequestContextImpl(HttpServletRequest httpReq, String routePath) throws IOException {
         mHttpReq = httpReq;
         extractParameters(httpReq.getQueryString(), mGetParams);
@@ -238,7 +239,7 @@ public class RequestContextImpl implements RequestContext {
                     mHttpReq.getRemotePort(),
                     mHttpReq.getRequestURI(),
                     mHttpReq.getPathInfo()
-                    );
+            );
         }
 
         return mServerData;

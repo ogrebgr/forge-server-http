@@ -8,7 +8,7 @@ import java.io.*;
 public class DownloadUtils {
 
 
-    public static final void saveDownloadedFile(InputStream is, String destination) throws IOException {
+    public static void saveDownloadedFile(InputStream is, String destination) throws IOException {
         BufferedOutputStream out = null;
         try {
             out = new BufferedOutputStream(new FileOutputStream(new File(destination)));

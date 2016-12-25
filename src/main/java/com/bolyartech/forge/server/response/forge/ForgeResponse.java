@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 public class ForgeResponse extends JsonResponse {
     private static final String FORGE_RESULT_CODE_HEADER = "X-Forge-Result-Code";
 
-    private final int mResultCode;
+    private final ForgeResponseCode mResultCode;
 
 
-    public ForgeResponse(String string, int resultCode) {
+    public ForgeResponse(String string, ForgeResponseCode resultCode) {
         super(string);
         mResultCode = resultCode;
     }
 
 
-    public ForgeResponse(String string, boolean enableGzipSupport, int resultCode) {
+    public ForgeResponse(String string, boolean enableGzipSupport, ForgeResponseCode resultCode) {
         super(string, enableGzipSupport);
         mResultCode = resultCode;
     }
@@ -26,12 +26,12 @@ public class ForgeResponse extends JsonResponse {
 
     @Override
     public void toServletResponse(HttpServletResponse resp) throws ResponseException {
-        resp.setHeader(FORGE_RESULT_CODE_HEADER, Integer.toString(mResultCode));
+        resp.setHeader(FORGE_RESULT_CODE_HEADER, Integer.toString(mResultCode.getCode()));
         super.toServletResponse(resp);
     }
 
 
-    public int getResultCode() {
+    public ForgeResponseCode getResultCode() {
         return mResultCode;
     }
 

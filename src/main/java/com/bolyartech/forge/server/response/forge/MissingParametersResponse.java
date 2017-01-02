@@ -3,6 +3,7 @@ package com.bolyartech.forge.server.response.forge;
 public class MissingParametersResponse extends ForgeResponse {
     private static MissingParametersResponse mInstance = new MissingParametersResponse();
 
+
     public MissingParametersResponse() {
         super(BasicResponseCodes.Errors.MISSING_PARAMETERS, "");
     }

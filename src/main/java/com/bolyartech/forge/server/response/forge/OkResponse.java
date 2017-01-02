@@ -3,6 +3,7 @@ package com.bolyartech.forge.server.response.forge;
 public class OkResponse extends ForgeResponse {
     private static OkResponse mInstance = new OkResponse();
 
+
     public OkResponse() {
         super(BasicResponseCodes.Oks.OK, "");
     }

@@ -12,7 +12,7 @@ import java.util.List;
 public class ModuleRegisterImpl implements ModuleRegister {
     private final RouteRegister mRouteRegister;
 
-    private final List<ForgeModule> mModules = new ArrayList<>();
+    private final List<HttpModule> mModules = new ArrayList<>();
 
 
     public ModuleRegisterImpl(RouteRegister routeRegister) {
@@ -21,7 +21,7 @@ public class ModuleRegisterImpl implements ModuleRegister {
 
 
     @Override
-    public void registerModule(ForgeModule mod) {
+    public void registerModule(HttpModule mod) {
         if (!isModuleRegistered(mod)) {
             mModules.add(mod);
             for (Route ep : mod.createRoutes()) {
@@ -42,10 +42,10 @@ public class ModuleRegisterImpl implements ModuleRegister {
 
 
     @Override
-    public boolean isModuleRegistered(ForgeModule mod) {
+    public boolean isModuleRegistered(HttpModule mod) {
         boolean ret = false;
 
-        for (ForgeModule m : mModules) {
+        for (HttpModule m : mModules) {
             if (m.getSystemName().equalsIgnoreCase(mod.getSystemName())) {
                 ret = true;
                 break;

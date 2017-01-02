@@ -8,7 +8,7 @@ import com.bolyartech.forge.server.config.ForgeServerConfiguration;
 import com.bolyartech.forge.server.config.ForgeServerConfigurationLoader;
 import com.bolyartech.forge.server.config.ForgeServerConfigurationLoaderImpl;
 import com.bolyartech.forge.server.handler.Handler;
-import com.bolyartech.forge.server.module.ForgeModule;
+import com.bolyartech.forge.server.module.HttpModule;
 import com.bolyartech.forge.server.module.ModuleRegister;
 import com.bolyartech.forge.server.module.ModuleRegisterImpl;
 import com.bolyartech.forge.server.response.ResponseException;
@@ -46,10 +46,10 @@ abstract public class MainServlet extends HttpServlet {
         try {
             ForgeServerConfiguration config = mForgeServerConfigurationLoader.load(this.getClass().getClassLoader());
             if (initLog(config.getServerLogName())) {
-                List<ForgeModule> modules = getModules();
+                List<HttpModule> modules = getModules();
 
                 if (modules != null && modules.size() > 0) {
-                    for (ForgeModule mod : getModules()) {
+                    for (HttpModule mod : getModules()) {
                         mModuleRegister.registerModule(mod);
                     }
                     mLogger.info("Forge server initialized and started.");
@@ -108,7 +108,7 @@ abstract public class MainServlet extends HttpServlet {
     }
 
 
-    protected abstract List<ForgeModule> getModules();
+    protected abstract List<HttpModule> getModules();
 
 
     private void handle(HttpServletRequest req, HttpServletResponse resp, Route route) {

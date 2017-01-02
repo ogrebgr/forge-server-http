@@ -5,12 +5,11 @@ import com.bolyartech.forge.server.route.Route;
 import java.util.List;
 
 
-public interface ForgeModule {
+public interface HttpModule {
     List<Route> createRoutes();
 
     String getSystemName();
 
-    @SuppressWarnings("SameReturnValue")
     String getShortDescription();
 
     int getVersionCode();
